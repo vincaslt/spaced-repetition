@@ -18,7 +18,7 @@ const config = {
 
 const last_shown = new Date()
 const last_state = 'new'
-const word = new SpacedRepetition(config, last_shown, last_state)
+const word = new SpacedRepetition(last_shown, last_state, config)
 const result = word.good() // new SpacedRepetition instance
 ```
 
