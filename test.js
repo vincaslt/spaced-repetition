@@ -17,104 +17,104 @@ const TEST_DATE = new Date(1478425537713)
 const getTimeDifference = (date) => date.getTime() - TEST_DATE.getTime()
 
 it('should go from new to fresh, when grade is "ok", within 15 minutes', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'new')
+  const word = new SpacedRepetition(TEST_DATE, 'new', config)
   const status = word.ok()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['fresh']))
 })
 
 it('should go from bad to new, when grade is "good", within 3 minutes', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'bad')
+  const word = new SpacedRepetition(TEST_DATE, 'bad', config)
   const status = word.good()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['new']))
 })
 
 it('should go from new to average, when grade is "good", within 1 day', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'new')
+  const word = new SpacedRepetition(TEST_DATE, 'new', config)
   const status = word.good()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['average']))
 })
 
 it('should go from bad to new, when grade is "ok", within 3 minutes', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'bad')
+  const word = new SpacedRepetition(TEST_DATE, 'bad', config)
   const status = word.ok()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['new']))
 })
 
 it('should go from fresh to average, when grade is "good", within 1 day', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'fresh')
+  const word = new SpacedRepetition(TEST_DATE, 'fresh', config)
   const status = word.good()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['average']))
 })
 
 it('should go from average to old, when grade is "good", within 5 days', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'average')
+  const word = new SpacedRepetition(TEST_DATE, 'average', config)
   const status = word.good()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['old']))
 })
 
 it('should go from fresh to fresh, when grade is "ok", within 15 minutes', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'fresh')
+  const word = new SpacedRepetition(TEST_DATE, 'fresh', config)
   const status = word.ok()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['fresh']))
 })
 
 it('should go from average to fresh, when grade is "ok", within 1 day', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'average')
+  const word = new SpacedRepetition(TEST_DATE, 'average', config)
   const status = word.ok()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['fresh']))
 })
 
 it('should go from old to fresh, when grade is "ok", within 1 day', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'old')
+  const word = new SpacedRepetition(TEST_DATE, 'old', config)
   const status = word.ok()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['fresh']))
 })
 
 it('should go from old to never, when grade is "good"', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'old')
+  const word = new SpacedRepetition(TEST_DATE, 'old', config)
   const status = word.good()
   return status.state.should.equal('never')
 })
 
 it('should go from new to bad, when grade is "bad", within 1 minute', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'new')
+  const word = new SpacedRepetition(TEST_DATE, 'new', config)
   const status = word.bad()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['bad']))
 })
 
 it('should go from fresh to bad, when grade is "bad", within 1 minute', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'fresh')
+  const word = new SpacedRepetition(TEST_DATE, 'fresh', config)
   const status = word.bad()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['bad']))
 })
 
 it('should go from average to bad, when grade is "bad", within 1 minute', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'average')
+  const word = new SpacedRepetition(TEST_DATE, 'average', config)
   const status = word.bad()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['bad']))
 })
 
 it('should go from old to bad, when grade is "bad", within 1 minute', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'old')
+  const word = new SpacedRepetition(TEST_DATE, 'old', config)
   const status = word.bad()
   const diff = getTimeDifference(status.date)
   return diff.should.equal(humanInterval(config['bad']))
 })
 
 it('should change state: new -> average -> fresh -> bad -> new -> fresh -> average -> old -> never', () => {
-  const word = new SpacedRepetition(config, TEST_DATE, 'new')
+  const word = new SpacedRepetition(TEST_DATE, 'new', config)
   const status = word.good().ok().bad().ok().ok().good().good().good()
   return status.state.should.equal('never')
 })

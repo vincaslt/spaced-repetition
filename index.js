@@ -1,18 +1,16 @@
 var humanInterval = require('human-interval')
 
+const defaultConfig = {
+  'new': '5 minutes',
+  'bad': '5 minutes',
+  'fresh': '1 day',
+  'average': '3 days',
+  'old': '14 days'
+}
+
 class SpacedRepetition {
-  constructor (config, date, state) {
-    if (config === undefined) {
-      this.config = {
-        'new': '5 minutes',
-        'bad': '5 minutes',
-        'fresh': '1 day',
-        'average': '3 days',
-        'old': '14 days'
-      }
-    } else {
-      this.config = config
-    }
+  constructor (date, state, config) {
+    this.config = config || defaultConfig
     this.state = state || 'new'
     this.date = date
   }
